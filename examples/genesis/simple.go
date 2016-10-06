@@ -7,6 +7,7 @@ type Job struct {
 	FSM    *fsm.FSM
 }
 
+// go run examples/genesis/simple.go examples/genesis/util.go examples/genesis/examples.go
 func main() {
-	example3()
+	example4()
 }

@@ -9,6 +9,12 @@ import (
 
 const Maxtries = 5
 
+//Newsfsm return a simple fsm object which has state transitions as explained below
+/*    transiiton event |--->---|                    |--->---|                       |--->---|                           |--->---|
+idle---->(init)---->initcomplete---->(makePlan)---->planinit---->(planexecute)---->executeplan---->(executeJobs)----->completeexecution
+										   |---<---|                    |---<---|                       |---<---|                            |---<---|
+---->(close)----->closed
+*/
 func Newsfsm(state string) *fsm.FSM {
 	return fsm.NewFSM(
 		state,
@@ -78,6 +84,7 @@ func Newsfsm(state string) *fsm.FSM {
 
 type eventfunc func(string, ...interface{}) error
 
+//eventreentrant retries and event based on numretries
 func eventreentrant(event eventfunc, name string, numretries int, args ...interface{}) error {
 	var err error
 	for i := 0; i < numretries; i++ {
@@ -89,6 +96,8 @@ func eventreentrant(event eventfunc, name string, numretries int, args ...interf
 	return err
 }
 
+// eventexecutor takes fsm object and event name to execute and expecterror bool and number of retries
+// in case of error expected then goes to error event and executes error event in eventreentrant function
 func eventexecutor(fsm *fsm.FSM, name string, expecterror bool, numretries int, args ...interface{}) {
 	var err error
 	if fsm.Can(name) {
