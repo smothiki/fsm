@@ -5,6 +5,42 @@ package main
 func example1() {
 	fsm := Newsfsm("idle")
 	eventexecutor(fsm, "init", false, 0)
+	eventexecutor(fsm, "state1_2", false, 0)
+	eventexecutor(fsm, "state2_3", false, 0)
+	eventexecutor(fsm, "state3_4", false, 0)
+	eventexecutor(fsm, "close", false, 0)
+}
+
+func example2() {
+	fsm := Newsfsm("idle")
+	eventexecutor(fsm, "init", false, 0)
+	eventexecutor(fsm, "state1_2", true, 1)
+	eventexecutor(fsm, "state2_3", false, 0)
+	eventexecutor(fsm, "state3_4", true, 1)
+	eventexecutor(fsm, "close", false, 0)
+}
+
+func example3() {
+	fsm := Newsfsm("idle")
+	eventexecutor(fsm, "init", false, 0)
+	eventexecutor(fsm, "state1_2", true, 2)
+	eventexecutor(fsm, "state2_3", false, 0)
+	eventexecutor(fsm, "state3_4", true, 1)
+	eventexecutor(fsm, "close", false, 0)
+}
+
+func example4() {
+	fsm := Newsfsm("state2")
+	eventexecutor(fsm, "init", false, 0)
+	eventexecutor(fsm, "state1_2", true, 2)
+	eventexecutor(fsm, "state2_3", false, 0)
+	eventexecutor(fsm, "state3_4", true, 1)
+	eventexecutor(fsm, "close", false, 0)
+}
+
+/*func example1() {
+	fsm := Newsfsm("idle")
+	eventexecutor(fsm, "init", false, 0)
 	eventexecutor(fsm, "makePlan", false, 0)
 	eventexecutor(fsm, "planexecute", false, 0)
 	eventexecutor(fsm, "executeJobs", false, 0)
@@ -42,4 +78,4 @@ func example4() {
 	eventexecutor(fsm, "planexecute", false, 0)
 	eventexecutor(fsm, "executeJobs", true, 1)
 	eventexecutor(fsm, "close", false, 0)
-}
+}*/
